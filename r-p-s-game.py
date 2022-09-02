@@ -1,4 +1,5 @@
 
+
 def get_hand_user(number: int) -> str:
     """Pick a number from the user and return string representation of the hand
 
@@ -27,13 +28,14 @@ def get_hand_computer() -> str:
     number = random.randint(0,2)
 
     values = {0 : "rock", 1: "paper",2:"scissorr"}
+
     for key,value  in values.items():
         if number == key:
             return value
 
 
 def determine_winner(user_hand: str, comp_hand:str) -> str:
-    """Establishes who won the rock paper scissor game
+    """Establishes if the user won, drew or lost the game
 
     Args:
         user_hand (str): entry by the use
@@ -42,85 +44,64 @@ def determine_winner(user_hand: str, comp_hand:str) -> str:
     Returns:
         str: The winner
     """
-    #options
-    options = {1:"win",2:"lose",3:"draw"}
+    #options referred by numbers for accuracy/consistancy
+    options = {1:"won",2:"lost",3:"drew"}
 
-    # possibilities
-    possibilities = {"user" : "","comp":""}
+    #store the possibilities for the user
+    game_outcome = " "
 
-    
-    # User probabilities
+    # User Winning probabilities
 
     if user_hand == "scissorr" and comp_hand == "paper":
-        possibilities["user"] =options[1]
-        possibilities["comp"] =options[2]
-
+        game_outcome =options[1]
+        
     elif user_hand == "paper" and comp_hand == "rock":
-        possibilities["user"] =options[1]
-        possibilities["comp"] =options[2]
-    
+        game_outcome =options[1]
+       
     elif user_hand == "rock" and comp_hand == "scissor":
-        possibilities["user"] =options[1]
-        possibilities["comp"] =options[2]
-
+        game_outcome =options[1]
+       
     elif user_hand == "rock" and comp_hand == "rock":
-        possibilities["user"] =options[3]
-        possibilities["comp"] =options[3]
-    
+        game_outcome =options[3]
+        
     elif user_hand == "scissor" and comp_hand == "scissor":
-        possibilities["user"] =options[3]
-        possibilities["comp"] =options[3]
-    
+        game_outcome =options[3]
+        
     elif user_hand == "paper" and comp_hand == "paper":
-        possibilities["user"] =options[3]
-        possibilities["comp"] =options[3]
-
-    # Computer probabilities
-
-    elif comp_hand == "scissorr" and user_hand == "paper":
-        possibilities["user"] =options[2]
-        possibilities["comp"] =options[1]
-
-    elif comp_hand == "paper" and user_hand == "rock":
-        possibilities["user"] =options[2]
-        possibilities["comp"] =options[1]
+        game_outcome =options[3]
     
-    elif comp_hand == "rock" and user_hand == "scissor":
-        possibilities["user"] =options[2]
-        possibilities["comp"] =options[1]
+    else:
+         game_outcome = options[2]
 
-    elif user_hand == "rock" and comp_hand == "rock":
-        possibilities["user"] =options[3]
-        possibilities["comp"] =options[3]
-    
-    elif user_hand == "scissor" and comp_hand == "scissor":
-        possibilities["user"] =options[3]
-        possibilities["comp"] =options[3]
-    
-    elif user_hand == "paper" and comp_hand == "paper":
-        possibilities["user"] =options[3]
-        possibilities["comp"] =options[3]
-
-    for key, value in possibilities.items():
-        if value == "win":
-            print(key,"won")
-            return key
+    return game_outcome
 
 def ask_option() -> int:
-    """Displays the game options for the user
+    """Displays the game options for the user, and ask the user to select an option
 
     Returns:
         int: returns a keypair of what was selected by the user
     """
-    print("select one option:")
-    values = {0 : "rock", 1: "paper",2:"scissorr"}
-    for key,value in values.items():
-        print(f"{key}:{value}")
-    
-    option = int(input("Insert option: "))
+    while True:
+        print("_____________ROCK, PAPER SCISSOR GAME !___________________")
+
+        print("select one option:")
+        values = {0 : "rock", 1: "paper",2:"scissorr"}
+        for key,value in values.items():
+            print(f"{key}:{value}")
+        print("_________________________________________________________")
+        option = input("Insert your option: ")
+
+        if option.isdigit():
+            option = int(option)
+            if option > 2 or option < 0:
+                print("Input out of range, try again:")
+            else:
+                break            
+        else:
+            print("You entered a text and not a number, try again:")
+            
     return option
-
-
+        
 
 def main():
     """Compiles code into one
@@ -130,8 +111,9 @@ def main():
     comp_option = get_hand_computer()
 
     winner =determine_winner(user_option,comp_option)
-
-    print(f"User_hand:{user_option}\ncomputer_hand:{comp_option}\nWinner:{winner}")
-
+    print("\n__________________OUTCOME______________________________")
+    print(f"User_hand:{user_option}\ncomputer_hand:{comp_option}")
+    print("_________________________________________________________")
+    print(f"User:{winner}")
 
 main()

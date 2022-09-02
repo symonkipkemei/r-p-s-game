@@ -78,7 +78,11 @@ To get this project up and running locally, you must already have python plus th
 
 <h1 id="illus">Illustrations</h1>
 
-![illustartion](https://github.com/symonkipkemei/r-p-s-game/blob/[main]/illu-min.jpg?raw=true)
+![01](illustrations/illu-01.PNG)
+
+![01](illustrations/illu-02.PNG)
+
+![01](illustrations/illu-03.PNG)
 
 
 <PROJECT-INFORMATION>
